@@ -1,0 +1,9 @@
+{
+  "typescript.preferences.importModuleSpecifier": "non-relative", //allow vscode to recommend alias imports via intellisense
+  "css.lint.unknownAtRules": "ignore", //fix for tailwind directives warning in vscode
+  "tailwindCSS.classAttributes": ["class",
+  "className", ".*ClassName", 
+  ".*Style", "style",
+  ".*Styles", "styles",
+  "tw*."] //enable tailwind intellisense for matching variables or attributes
+}

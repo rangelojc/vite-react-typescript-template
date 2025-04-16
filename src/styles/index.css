@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f7f6f9;
+  --color-primary-100: #efedf1;
+  --color-primary-200: #dbd7e0;
+  --color-primary-300: #bbb4c5;
+  --color-primary-400: #968ba5;
+  --color-primary-500: #796c8b;
+  --color-primary-600: #635772;
+  --color-primary-700: #51475d;
+  --color-primary-800: #453d4f;
+  --color-primary-900: #3c3644;
+  --color-primary-950: #1b181e;
+
+  --color-secondary-50: #f8f8f5;
+  --color-secondary-100: #e7e8df;
+  --color-secondary-200: #cfd1be;
+  --color-secondary-300: #afb296;
+  --color-secondary-400: #8b9170;
+  --color-secondary-500: #707656;
+  --color-secondary-600: #595e43;
+  --color-secondary-700: #494d38;
+  --color-secondary-800: #3c3f30;
+  --color-secondary-900: #282a21;
+  --color-secondary-950: #1b1e15;
+}
+
+:root {
+  font-family: IBM Plex Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #fffffff2;
+  background: transparent;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #111111;
+}
