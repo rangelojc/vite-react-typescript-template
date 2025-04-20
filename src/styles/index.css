@@ -33,9 +33,6 @@ body {
   --color-accent-900: #3f590e;
   --color-accent-950: #1f3201;
 
-  --color-chart-bullish: oklch(0.75 0.17 155.99);
-  --color-chart-bearish: oklch(0.56 0.21 19.27);
-
   --color-text-light: oklch(0.985 0.002 247.839);
   --color-text-dark: oklch(0.13 0.028 261.692);
 
