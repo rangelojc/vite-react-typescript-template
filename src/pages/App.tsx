@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { initI18n } from "@/i18n";
 import "@/styles/fonts.css";
 import "@/styles/utils.css";
@@ -11,6 +12,7 @@ function App() {
       id="appScrollContainer"
     >
       Hello World
+      <ThemeToggle />
     </main>
   );
 }
