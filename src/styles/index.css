@@ -6,12 +6,8 @@
 html,
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 100vw;
-  min-height: 100vh;
-  font-family: Inter, IBM Plex sans, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Arial, sans-serif;
 
   line-height: 1.5;
   font-weight: 400;
@@ -150,12 +146,12 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground text-base;
+
+  html {
+    @apply overflow-auto;
   }
 
-  html,
   body {
-    @apply overflow-hidden;
+    @apply bg-background text-foreground text-base overflow-hidden h-auto w-full;
   }
 }
