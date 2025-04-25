@@ -2,6 +2,9 @@ import { Theme } from "@/context/ThemeProvider";
 import { persist } from "zustand/middleware";
 
 export interface AppSlice {
+  appError: string | null;
+  setAppError: (error: string | null) => void;
+
   language: string;
   setLanguage: (lang: string) => void;
 
@@ -11,6 +14,9 @@ export interface AppSlice {
 
 export const createAppSlice = persist<AppSlice>(
   (set) => ({
+    appError: null,
+    setAppError: (error) => set({ appError: error }),
+
     language: "ko",
     setLanguage: (lang) => set({ language: lang }),
 
