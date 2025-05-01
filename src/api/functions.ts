@@ -1,6 +1,11 @@
 export const baseUrl = import.meta.env.VITE_API_URL || "/api";
 export const apiKey = import.meta.env.VITE_API_KEY;
 
+export const defaultQueryOptions = {
+  staleTime: 5 * 60 * 1000,
+  retry: 0,
+};
+
 export const fetchJson = async <T>(
   url: string,
   options?: RequestInit

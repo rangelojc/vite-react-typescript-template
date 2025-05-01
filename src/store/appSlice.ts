@@ -10,6 +10,9 @@ export interface AppSlice {
 
   theme: Theme;
   setTheme: (theme: Theme) => void;
+
+  isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
 export const createAppSlice = persist<AppSlice>(
@@ -22,9 +25,17 @@ export const createAppSlice = persist<AppSlice>(
 
     theme: "light",
     setTheme: (theme) => set({ theme }),
+
+    isLoggedIn: false,
+    setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
   }),
   {
     name: "app-zustand",
-    partialize: (state) => ({ language: state.language } as AppSlice),
+    partialize: (state) =>
+      ({
+        language: state.language,
+        theme: state.theme,
+        isLoggedIn: state.isLoggedIn,
+      } as AppSlice),
   }
 );
