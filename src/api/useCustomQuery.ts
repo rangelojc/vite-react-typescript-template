@@ -1,3 +1,4 @@
+import { handleApi } from "@/api/functions";
 import { useAppStore } from "@/store/store";
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 
@@ -18,24 +19,9 @@ const useCustomQuery = <TData = unknown, TError = unknown>(
 ) => {
   const setAppError = useAppStore((s) => s.setAppError);
 
-  const handleApi = async () => {
-    try {
-      setAppError(null);
-      return await queryFn();
-    } catch (error: any) {
-      const message =
-        error?.name === "AbortError"
-          ? "Request was aborted."
-          : error?.message || "Unknown error occurred.";
-
-      setAppError(message);
-      throw error;
-    }
-  };
-
   return useQuery<TData, TError>({
     queryKey,
-    queryFn: handleApi,
+    queryFn: () => handleApi(queryFn, setAppError),
     ...defaultQueryOptions,
     ...options,
   });

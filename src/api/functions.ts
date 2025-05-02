@@ -1,9 +1,42 @@
+import { AppSlice } from "@/store/appSlice";
+
 export const baseUrl = import.meta.env.VITE_API_URL || "/api";
 export const apiKey = import.meta.env.VITE_API_KEY;
 
 export const defaultQueryOptions = {
   staleTime: 5 * 60 * 1000,
   retry: 0,
+};
+
+export const handleApi = async <T>(
+  fn: () => Promise<T>,
+  setAppError: AppSlice["setAppError"]
+): Promise<T> => {
+  try {
+    setAppError(null);
+    return await fn();
+  } catch (error: any) {
+    const message =
+      error?.name === "AbortError"
+        ? "Request was aborted."
+        : error?.message || "Unknown error occurred.";
+
+    setAppError(message);
+    throw new Error(error);
+  }
+};
+
+export const customFetch = async (
+  url: string,
+  options?: RequestInit
+): Promise<Response> => {
+  return fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
 };
 
 export const fetchJson = async <T>(

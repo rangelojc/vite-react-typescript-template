@@ -1,3 +1,4 @@
+import { handleApi } from "@/api/functions";
 import { defaultQueryOptions } from "@/api/useCustomQuery";
 import { useAppStore } from "@/store/store";
 import {
@@ -22,24 +23,10 @@ const useCustomMutation = <
 ) => {
   const setAppError = useAppStore((s) => s.setAppError);
 
-  const handleApi = async (variables: TVariables) => {
-    try {
-      setAppError(null);
-      return await mutationFn(variables);
-    } catch (error: any) {
-      const message =
-        error?.name === "AbortError"
-          ? "Request was aborted."
-          : error?.message || "Unknown error occurred.";
-
-      setAppError(message);
-      throw error;
-    }
-  };
-
   return useMutation<TData, TError, TVariables, TContext>({
     mutationKey,
-    mutationFn: handleApi,
+    mutationFn: async (variables: TVariables) =>
+      handleApi(() => mutationFn(variables), setAppError),
     ...defaultQueryOptions,
     ...options,
   });
