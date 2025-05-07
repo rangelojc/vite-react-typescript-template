@@ -15,7 +15,7 @@ const buttonVariants = cva(
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground shadow-xs hover:brightness-[90%]",
         ghost: "hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         accent:
@@ -50,7 +50,10 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        "cursor-pointer",
+        buttonVariants({ variant, size, className })
+      )}
       {...props}
     />
   );
