@@ -8,6 +8,13 @@ export const defaultQueryOptions = {
   retry: 0,
 };
 
+export const handleApiError = async (response: Response) => {
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData?.message || `Error Code ${response.status}`);
+  }
+};
+
 export const handleApi = async <T>(
   fn: () => Promise<T>,
   setAppError: AppSlice["setAppError"]
@@ -32,6 +39,7 @@ export const customFetch = async (
 ): Promise<Response> => {
   return fetch(url, {
     ...options,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...options?.headers,

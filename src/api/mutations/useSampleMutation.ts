@@ -1,4 +1,4 @@
-import { baseUrl, fetchJson } from "@/api/functions";
+import { baseUrl, customFetch, handleApiError } from "@/api/functions";
 import useCustomMutation from "@/api/useCustomMutation";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -12,19 +12,18 @@ const useSampleMutation = () => {
     async (vars: { form: any }) => {
       const form = vars.form;
 
-      const data = await fetchJson<{ success: boolean; data: any }>(
-        `${baseUrl}/sample`,
-        {
-          method: "POST",
-          body: JSON.stringify(form),
-        }
-      );
+      const rsp = await customFetch(`${baseUrl}/sample`, {
+        method: "POST",
+        body: JSON.stringify(form),
+        credentials: "include",
+      });
 
-      if (!data.success) {
-        throw new Error("Failed");
+      if (rsp.status === 200) {
+        const data = await rsp.json();
+        return data.data;
       }
 
-      return data.data;
+      handleApiError(rsp);
     },
     {
       onMutate: async (_payload) => {

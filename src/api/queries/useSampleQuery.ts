@@ -1,27 +1,21 @@
-import { baseUrl, fetchJson } from "@/api/functions";
+import { baseUrl, customFetch, handleApiError } from "@/api/functions";
 import useCustomQuery from "@/api/useCustomQuery";
 
 export const SAMPLE_QUERY_KEY = "sample" as const;
 
 const useSampleQuery = () =>
-  useCustomQuery<any>(
-    [SAMPLE_QUERY_KEY],
-    async () => {
-      const res = await fetchJson<{
-        success: boolean;
-        data: any;
-      }>(`${baseUrl}/auth/status`, {
-        method: "GET",
-        credentials: "include",
-      });
+  useCustomQuery<any>([SAMPLE_QUERY_KEY], async () => {
+    const rsp = await customFetch(`${baseUrl}/sample`, {
+      method: "GET",
+      credentials: "include",
+    });
 
-      if (!res.success) {
-        throw new Error("Failed to fetch.");
-      }
+    if (rsp.status === 200) {
+      const data = await rsp.json();
+      return data.data;
+    }
 
-      return res.data;
-    },
-    { refetchOnMount: "always" }
-  );
+    handleApiError(rsp);
+  });
 
 export default useSampleQuery;
