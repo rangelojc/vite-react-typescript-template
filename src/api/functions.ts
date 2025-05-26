@@ -1,3 +1,4 @@
+import { APIResult, APIResultSuccess } from "@/api/types";
 import { AppSlice } from "@/store/appSlice";
 
 export const baseUrl = import.meta.env.VITE_API_URL || "/api";
@@ -8,7 +9,29 @@ export const defaultQueryOptions = {
   retry: 0,
 };
 
-export const handleApiError = async (response: Response) => {
+export const apiResultSuccess = <T>(data?: T): APIResult<T> => ({
+  success: true,
+  data: data,
+});
+
+export const apiErrorFactory = async <T = never>(data: {
+  status: number;
+  message: string;
+}): Promise<APIResult<T>> => {
+  return {
+    success: false,
+    error: {
+      status: data.status,
+      error: data.message,
+    },
+  };
+};
+
+export function isApiSuccess<T>(rsp: APIResult<T>): rsp is APIResultSuccess<T> {
+  return rsp.success === true;
+}
+
+export const throwUnhandledApiError = async (response: Response) => {
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData?.message || `Error Code ${response.status}`);

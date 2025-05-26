@@ -1,4 +1,10 @@
-import { baseUrl, customFetch, handleApiError } from "@/api/functions";
+import {
+  apiErrorFactory,
+  apiResultSuccess,
+  baseUrl,
+  customFetch,
+  throwUnhandledApiError,
+} from "@/api/functions";
 import useCustomMutation from "@/api/useCustomMutation";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -19,11 +25,15 @@ const useSampleMutation = () => {
       });
 
       if (rsp.status === 200) {
-        const data = await rsp.json();
-        return data.data;
+        return apiResultSuccess();
       }
 
-      handleApiError(rsp);
+      if (rsp.status === 401) {
+        const data = await rsp.json();
+        return apiErrorFactory(data);
+      }
+
+      return throwUnhandledApiError(rsp);
     },
     {
       onMutate: async (_payload) => {

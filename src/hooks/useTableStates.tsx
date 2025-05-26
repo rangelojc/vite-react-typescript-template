@@ -7,6 +7,9 @@ type UseTableStatesOptions = {
   defaultSearchField?: string;
   defaultSortField?: string;
   defaultSortOrder?: "ASC" | "DESC";
+  defaultDate?: string;
+  defaultDateStart?: string;
+  defaultDateEnd?: string;
 };
 
 export default function useTableStates({
@@ -15,19 +18,25 @@ export default function useTableStates({
   defaultSearchField = "",
   defaultSortField = "",
   defaultSortOrder = "ASC",
+  defaultDate = "",
+  defaultDateStart = "",
+  defaultDateEnd = "",
 }: UseTableStatesOptions = {}) {
   const [page, setPage] = useState(defaultPage);
-  const [searchValue, setSearchValue] = useState(defaultSearch);
+  const [search, setsearch] = useState(defaultSearch);
   const [searchField, setSearchField] = useState(defaultSearchField);
   const [sortField, setSortField] = useState(defaultSortField);
   const [sortOrder, setSortOrder] = useState<"ASC" | "DESC">(defaultSortOrder);
+  const [date, setDate] = useState(defaultDate);
+  const [dateStart, setDateStart] = useState(defaultDateStart);
+  const [dateEnd, setDateEnd] = useState(defaultDateEnd);
 
   const delay = useDelay(1000);
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       delay(() => {
-        setSearchValue(e.target.value);
+        setsearch(e.target.value);
         setPage(1);
       });
     },
@@ -36,15 +45,21 @@ export default function useTableStates({
 
   return {
     page,
-    searchValue,
+    search,
     searchField,
     sortField,
     sortOrder,
+    date,
+    dateStart,
+    dateEnd,
     setPage,
-    setSearchValue,
+    setsearch,
     setSearchField,
     setSortField,
     setSortOrder,
+    setDate,
+    setDateStart,
+    setDateEnd,
     handleSearchChange,
   };
 }

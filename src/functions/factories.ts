@@ -12,7 +12,7 @@ export const createPaginationRequest = (
     page: payload.page ?? 1,
     pageSize: payload.pageSize ?? 10,
     searchField: payload.searchField ?? "",
-    searchValue: payload.searchValue ?? "",
+    search: payload.search ?? "",
     sortBy: payload.sortBy ?? "",
     sortOrder: payload.sortOrder ?? "",
   };
@@ -21,7 +21,7 @@ export const createPaginationRequest = (
     page: String(form.page),
     limit: String(form.pageSize),
     searchField: form.searchField ?? "",
-    searchValue: form.searchValue ?? "",
+    searchValue: form.search ?? "",
     sortBy: form.sortBy ?? "",
     sortOrder: form.sortOrder ?? "",
   }).toString();
