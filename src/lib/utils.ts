@@ -6,6 +6,32 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const scrollTargetToBottom = (target: string, smooth?: boolean) => {
+  const el = document.querySelector(target);
+
+  if (el) {
+    el.scroll({
+      top: el.scrollHeight,
+      behavior: smooth ? "smooth" : "instant",
+    });
+  }
+};
+
+export const scrollTargetBy = (
+  target: string,
+  by: number,
+  smooth?: boolean
+) => {
+  const el = document.querySelector(target);
+
+  if (el) {
+    el.scroll({
+      top: el.scrollTop + by,
+      behavior: smooth ? "smooth" : "instant",
+    });
+  }
+};
+
 export const scrollTargetToChild = (
   target: string,
   child: string,
