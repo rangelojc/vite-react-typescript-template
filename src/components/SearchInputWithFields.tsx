@@ -16,6 +16,7 @@ interface SearchInputWithFieldsProps
   searchFields: { value: string; label: string }[];
   searchField: string;
   setSearchField: (field: string) => void;
+  selectTriggerClassName?: string;
 }
 
 export function SearchInputWithFields({
@@ -23,18 +24,24 @@ export function SearchInputWithFields({
   searchFields,
   searchField,
   setSearchField,
+  selectTriggerClassName,
   ...props
 }: SearchInputWithFieldsProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center w-full">
       {/* Dropdown for selecting search field */}
       <Select
         value={searchField}
         onValueChange={(field) => setSearchField(field)}
       >
-        <SelectTrigger className="w-[140px] h-9 text-xs rounded-r-none border-r-transparent -mr-[1px]">
+        <SelectTrigger
+          className={cn(
+            "w-[140px] h-9 text-xs rounded-r-none border-r-transparent -mr-[1px]",
+            selectTriggerClassName
+          )}
+        >
           <SelectValue placeholder={t("search_by")} />
         </SelectTrigger>
         <SelectContent>
@@ -55,7 +62,7 @@ export function SearchInputWithFields({
             className
           )}
           type="search"
-          placeholder={t("search")}
+          placeholder={"Search"}
           {...props}
         />
       </div>
