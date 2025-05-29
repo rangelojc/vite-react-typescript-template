@@ -16,10 +16,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { SortAsc, SortDesc } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 interface DataTableProps<TData, TValue> {
+  className?: string;
+  classNameTr?: string;
+  classNameTd?: string;
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   sortField?: string;
@@ -30,6 +33,9 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({
+  className,
+  classNameTr,
+  classNameTd,
   columns,
   data,
   sortField,
@@ -38,8 +44,6 @@ export function DataTable<TData, TValue>({
   setSortOrder,
   renderRowActions,
 }: DataTableProps<TData, TValue>) {
-  const { t } = useTranslation();
-
   const internalColumns = [...columns];
 
   if (renderRowActions) {
@@ -69,7 +73,7 @@ export function DataTable<TData, TValue>({
   };
 
   return (
-    <div className="rounded-md border">
+    <div className={cn("rounded border", className)}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -116,10 +120,10 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="hover:!bg-[initial]"
+                className={cn("hover:!bg-[initial]", classNameTr)}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className={classNameTd}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -128,7 +132,7 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow className="hover:!bg-[initial]">
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                {t("no_results")}
+                No Results
               </TableCell>
             </TableRow>
           )}
