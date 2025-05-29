@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   setSortField?: (field: string) => void;
   setSortOrder?: (order: "DESC" | "ASC") => void;
   renderRowActions?: (row: TData) => React.ReactNode;
+  renderRowActionsIn?: "end" | "start";
 }
 
 export function DataTable<TData, TValue>({
@@ -43,15 +44,19 @@ export function DataTable<TData, TValue>({
   setSortField,
   setSortOrder,
   renderRowActions,
+  renderRowActionsIn,
 }: DataTableProps<TData, TValue>) {
   const internalColumns = [...columns];
 
   if (renderRowActions) {
-    internalColumns.push({
+    const actionColumn: ColumnDef<TData> = {
       id: "actions",
       header: "",
       cell: ({ row }) => renderRowActions(row.original),
-    } as ColumnDef<TData>);
+    };
+
+    if (renderRowActionsIn === "end") internalColumns.push(actionColumn);
+    else internalColumns.unshift(actionColumn);
   }
 
   const table = useReactTable({
