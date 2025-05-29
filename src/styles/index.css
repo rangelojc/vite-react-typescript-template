@@ -155,3 +155,28 @@ body {
     @apply bg-background text-foreground text-base overflow-hidden h-auto w-full;
   }
 }
+
+/* Scrollbar */
+
+body *::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body *::-webkit-scrollbar-thumb {
+  background-color: #647b83;
+  border-radius: 5px;
+  transition: all;
+}
+
+body *::-webkit-scrollbar-thumb:hover {
+  background-color: #8cabb6;
+}
+
+body *::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+body *::-webkit-scrollbar-corner {
+  display: none;
+}
