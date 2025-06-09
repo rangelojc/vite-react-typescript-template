@@ -13,21 +13,36 @@ export const NotificationBubble = ({
 }: NotificationBubbleProps) => {
   if (count === undefined || count <= 0) return null;
 
-  const baseSize =
-    size === "sm" ? "h-3 w-3 text-[10px]" : "h-5 min-w-[1.25rem] text-xs";
-  const padding = size === "sm" ? "px-0.5" : "px-1";
+  const baseSize = size === "sm" ? "size-4 text-[9px]" : "size-5 text-xs";
 
   return (
     <span
       className={cn(
-        "bg-red-500 text-white rounded-full flex items-center justify-center font-bold",
+        "bg-red-500 text-white rounded-full flex-row-center font-bold flex-none",
         baseSize,
-        padding,
         "absolute -top-2 -right-2",
         className
       )}
     >
       {count > 99 ? "99+" : count}
     </span>
+  );
+};
+
+export const TextlessNotificationBubble = ({
+  className,
+  size = "md",
+}: NotificationBubbleProps) => {
+  const baseSize = size === "sm" ? "size-2" : "size-3";
+
+  return (
+    <span
+      className={cn(
+        "bg-red-500 text-white rounded-full flex-row-center font-bold flex-none",
+        baseSize,
+        "absolute -top-2 -right-2",
+        className
+      )}
+    />
   );
 };
