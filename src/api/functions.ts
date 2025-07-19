@@ -1,4 +1,4 @@
-import { APIResult, APIResultSuccess } from "@/api/types";
+import { APIResult } from "@/api/types";
 import { AppSlice } from "@/store/appSlice";
 
 export const baseUrl = import.meta.env.VITE_API_URL || "/api";
@@ -26,10 +26,6 @@ export const apiErrorFactory = async <T = never>(data: {
     },
   };
 };
-
-export function isApiSuccess<T>(rsp: APIResult<T>): rsp is APIResultSuccess<T> {
-  return rsp.success === true;
-}
 
 export const throwUnhandledApiError = async (response: Response) => {
   if (!response.ok) {
