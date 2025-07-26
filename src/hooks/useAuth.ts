@@ -1,9 +1,8 @@
 import { throwUnhandledApiError } from "@/api/functions";
 import useRefreshTokenMutation from "@/api/mutations/useRefreshTokenMutation";
 import useBrowserCookie from "@/hooks/useBrowserCookie";
-import { RouteDefinition } from "@/pages/main";
 import { useAppStore } from "@/store/store";
-import { Cookies } from "@/types/app";
+import { Cookies, RouteDefinition } from "@/types/app";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 

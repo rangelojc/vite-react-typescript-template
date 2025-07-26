@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/context/ThemeProvider";
 import "@/styles/index.css";
+import { RouteDefinition } from "@/types/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
@@ -11,11 +12,6 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import App from "./App";
-
-export enum RouteDefinition {
-  INDEX = "/",
-  LOGIN = "/login",
-}
 
 const router = createBrowserRouter(
   createRoutesFromElements(

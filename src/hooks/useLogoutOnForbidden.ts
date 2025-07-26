@@ -1,6 +1,6 @@
 import useLogoutMutation from "@/api/mutations/useLogoutMutation";
-import { RouteDefinition } from "@/pages/main";
 import { useAppStore } from "@/store/store";
+import { RouteDefinition } from "@/types/app";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 

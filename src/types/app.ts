@@ -10,3 +10,8 @@ export enum Cookies {
   RT_ISSUEDATE = "rtid",
   AT_ISSUEDATE = "atid",
 }
+
+export enum RouteDefinition {
+  INDEX = "/",
+  LOGIN = "/login",
+}
