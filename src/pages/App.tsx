@@ -1,23 +1,46 @@
-import { Page, Wrapper } from "@/components/LayoutWidgets";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
+import useDelay from "@/hooks/useDelay";
 import { initI18n } from "@/i18n";
+import { useAppStore } from "@/store/store";
 import "@/styles/fonts.css";
 import "@/styles/utils.css";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+
+initI18n();
 
 function App() {
-  initI18n();
+  const { pathname } = useLocation();
+  const { toast, dismiss } = useToast();
+  const appError = useAppStore((s) => s.appError);
+  const setAppError = useAppStore((s) => s.setAppError);
+
+  const delay = useDelay(3000);
+
+  useEffect(() => {
+    if (appError) {
+      console.error("Unexpected Error:", appError);
+      toast({
+        title: "Unexpected Error",
+        description: appError,
+        variant: "destructive",
+      });
+      delay(dismiss);
+    }
+  }, [appError]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setAppError(null);
+  }, [pathname]);
 
   return (
-    <Page>
-      <Wrapper className="text-5xl flex-col-center min-h-screen">
-        <h1>Hello World</h1>
-        <p className="text-base mt-4">
-          Start adding new pages and components in{" "}
-          <span className="font-mono">/src/pages/App.tsx</span>
-        </p>
-        <ThemeToggle />
-      </Wrapper>
-    </Page>
+    <div className="w-full min-h-screen">
+      <Outlet />
+
+      <Toaster />
+    </div>
   );
 }
 

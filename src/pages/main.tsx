@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/context/ThemeProvider";
+import Home from "@/pages/Home";
 import "@/styles/index.css";
-import { RouteDefinition } from "@/types/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
@@ -16,7 +16,9 @@ import App from "./App";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<App />} path={RouteDefinition.INDEX} />
+      <Route element={<App />}>
+        <Route index element={<Home />} />
+      </Route>
       {/* <Route element={<Login />} path={RouteDefinition.LOGIN} /> */}
     </>
   )
