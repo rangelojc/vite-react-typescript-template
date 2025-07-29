@@ -61,7 +61,7 @@ function PaginationLink({
         className,
         isActive
           ? "text-foreground font-semibold pointer-events-none"
-          : "text-foreground/80 hover:bg-white/5 hover:text-text-light",
+          : "text-foreground/80",
         "cursor-pointer"
       )}
       {...props}

@@ -1,3 +1,10 @@
 {
-  "hello_world": ""
+  "pagination": "Page {{page}} of {{totalPages}}",
+  "previous": "Previous",
+  "next": "Next",
+  "back": "Back",
+  "min": "Min",
+  "max": "Max",
+  "confirmation": "Confirmation",
+  "confirmation.msg": "Are you sure?"
 }
