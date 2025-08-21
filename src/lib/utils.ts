@@ -127,3 +127,5 @@ export const generateRandomCandlestickData = (numCandles = 20) => {
 
   return data;
 };
+
+export const formatNumber = (num: number) => num.toLocaleString("ko-KR");
