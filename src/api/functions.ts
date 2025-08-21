@@ -1,4 +1,4 @@
-import { APIResult } from "@/api/types";
+import { APIResult, APIResultSuccess } from "@/api/types";
 import { AppSlice } from "@/store/appSlice";
 
 export const baseUrl = import.meta.env.VITE_API_URL || "/api";
@@ -143,4 +143,8 @@ function mergeAbortSignals(...signals: AbortSignal[]): AbortSignal {
   }
 
   return controller.signal;
+}
+
+export function isApiSuccess<T>(rsp: APIResult<T>): rsp is APIResultSuccess<T> {
+  return rsp.success === true;
 }
