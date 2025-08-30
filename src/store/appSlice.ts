@@ -13,6 +13,9 @@ export interface AppSlice {
 
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+
+  displayName?: string;
+  setDisplayName: (displayName: string) => void;
 }
 
 export const createAppSlice = persist<AppSlice>(
@@ -28,6 +31,9 @@ export const createAppSlice = persist<AppSlice>(
 
     isLoggedIn: false,
     setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
+
+    displayName: undefined,
+    setDisplayName: (displayName) => set({ displayName }),
   }),
   {
     name: "app-zustand",
