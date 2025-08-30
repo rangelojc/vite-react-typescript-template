@@ -1,5 +1,4 @@
-import { handleApi } from "@/api/functions";
-import { defaultQueryOptions } from "@/api/useCustomQuery";
+import { defaultQueryOptions, handleApi } from "@/api/functions";
 import { useAppStore } from "@/store/store";
 import {
   MutationKey,

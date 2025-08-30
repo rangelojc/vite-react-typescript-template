@@ -1,25 +1,22 @@
-import { handleApi } from "@/api/functions";
+import { defaultQueryOptions, handleApi } from "@/api/functions";
 import { useAppStore } from "@/store/store";
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 
-// Reusable default options
-export const defaultQueryOptions = {
-  staleTime: 5 * 60 * 1000,
-  retry: 2,
-};
-
-// Error-handling wrapper
-const useCustomQuery = <TData = unknown, TError = unknown>(
-  queryKey: QueryKey,
+const useCustomQuery = <
+  TData = unknown,
+  TError = unknown,
+  TQueryKey extends QueryKey = QueryKey
+>(
+  queryKey: TQueryKey,
   queryFn: () => Promise<TData>,
   options?: Omit<
-    UseQueryOptions<TData, TError, TData, QueryKey>,
+    UseQueryOptions<TData, TError, TData, TQueryKey>,
     "queryKey" | "queryFn"
   >
 ) => {
   const setAppError = useAppStore((s) => s.setAppError);
 
-  return useQuery<TData, TError>({
+  return useQuery<TData, TError, TData, TQueryKey>({
     queryKey,
     queryFn: () => handleApi(queryFn, setAppError),
     ...defaultQueryOptions,
