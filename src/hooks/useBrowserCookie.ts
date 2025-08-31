@@ -58,11 +58,21 @@ const useBrowserCookie = (cookieName: string) => {
     setCookieState(null);
   };
 
+  const getHttpHeader = () => {
+    const token = get();
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
+
   return {
     cookieValue,
     set,
     get,
     remove,
+    getHttpHeader,
   };
 };
 
