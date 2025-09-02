@@ -1,5 +1,7 @@
+import { DateFormats } from "@/types/app";
 import { clsx, type ClassValue } from "clsx";
 import { Transition } from "framer-motion";
+import moment from "moment";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -129,3 +131,7 @@ export const generateRandomCandlestickData = (numCandles = 20) => {
 };
 
 export const formatNumber = (num: number) => num.toLocaleString("ko-KR");
+
+export const formatDate = (date: string) => {
+  return moment(date).format(DateFormats.standard12Hour);
+};
