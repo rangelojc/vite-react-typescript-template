@@ -1,4 +1,3 @@
-import { Wrapper } from "@/components/LayoutWidgets";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,23 +10,29 @@ import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import { ReactNode } from "react";
 
-interface CustomBreadcrumbProps {
-  items: {
-    label: string;
-    href?: string;
-    icon?: ReactNode;
-  }[];
+type BreadcrumbItemType = {
+  label: string;
+  href?: string;
+  icon?: ReactNode;
+};
+
+interface BreadcrumbProps {
+  items: BreadcrumbItemType[];
   className?: string;
+  wrapperClassName?: string;
 }
 
-export default function CustomBreadcrumb({
+export default function AppBreadcrumb({
   items,
   className,
-}: CustomBreadcrumbProps) {
+  wrapperClassName,
+}: BreadcrumbProps) {
+  if (!items || items.length === 0) return null;
+
   return (
-    <Breadcrumb className={cn("text-sm border-b py-2 min-h-[37px]", className)}>
-      <Wrapper>
-        <BreadcrumbList className="!gap-1">
+    <Breadcrumb className={cn("text-sm border-b py-2", className)}>
+      <div className={cn("w-full mx-auto", wrapperClassName)}>
+        <BreadcrumbList className="!gap-1 px-4">
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
             const Icon = item.icon;
@@ -37,12 +42,12 @@ export default function CustomBreadcrumb({
                 <BreadcrumbItem>
                   {isLast || !item.href ? (
                     <BreadcrumbPage>
-                      {Icon && <span className="mr-1">{Icon}</span>}
+                      {Icon && <span className="mr-1 mb-1">{Icon}</span>}
                       {item.label}
                     </BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={item.href} className="cursor-pointer">
-                      {Icon && <span className="mr-1">{Icon}</span>}
+                    <BreadcrumbLink href={item.href}>
+                      {Icon && <span className="mr-1 mb-1">{Icon}</span>}
                       {item.label}
                     </BreadcrumbLink>
                   )}
@@ -56,7 +61,7 @@ export default function CustomBreadcrumb({
             );
           })}
         </BreadcrumbList>
-      </Wrapper>
+      </div>
     </Breadcrumb>
   );
 }
