@@ -73,3 +73,50 @@ export const useAuthProtectedQuery = () => {
     throw await throwUnhandledApiError(response);
   };
 };
+
+type StatusHandler<T> = (rsp: Response) => Promise<T | undefined>;
+
+interface AuthProtectedOptions<T> {
+  successFn?: (rsp: Response) => Promise<T>;
+  statusHandlers?: Record<number, StatusHandler<T>>;
+}
+
+export const useAuthProtectedQueryWithStatusHandlers = () => {
+  const attemptRefreshTokenOrLogout = useAttemptRefreshTokenOrLogout();
+
+  return async <T>(
+    fetchFn: () => Promise<Response>,
+    options: AuthProtectedOptions<T> = {}
+  ): Promise<T | undefined> => {
+    const { successFn, statusHandlers = {} } = options;
+
+    const handleResponse = async (
+      response: Response
+    ): Promise<T | undefined> => {
+      if (response.status === 200) {
+        return successFn?.(response);
+      }
+
+      // custom status handler exists?
+      if (statusHandlers[response.status]) {
+        return statusHandlers[response.status](response);
+      }
+
+      // default auth handling
+      if (response.status === 401 || response.status === 403) {
+        const didRefresh = await attemptRefreshTokenOrLogout();
+        if (didRefresh) {
+          const retryResponse = await fetchFn();
+          if (retryResponse.status === 200) return successFn?.(retryResponse);
+          else throw await throwUnhandledApiError(retryResponse);
+        } else throw new Error("Unauthorized");
+      }
+
+      // fallback error
+      throw await throwUnhandledApiError(response);
+    };
+
+    const response = await fetchFn();
+    return handleResponse(response);
+  };
+};
